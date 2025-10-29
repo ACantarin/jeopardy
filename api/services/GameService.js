@@ -1,10 +1,10 @@
 const database = require('../models')
-const PlayerService = require('./PlayerService')
 const gameResponseDTO = require('../dto/gameResponseDTO')
 const gameLostDTO = require('../dto/gameLostDTO')
 const gameWonDTO = require('../dto/gameWonDTO')
 const rightAnswerDTO = require('../dto/rightAnswerDTO')
 
+const PlayerService = require('./PlayerService')
 const playerService = new PlayerService()
 
 const INITIAL_LEVEL = 1
@@ -24,7 +24,7 @@ class GameService {
 
             const player = await playerService.getOrCreate(dto)
 
-            const game = await this.getGameByPlayerId(player.id)
+            var game = await this.getGameByPlayerId(player.id)
 
             if (!game) {
                 game = await this.createGame(player.id)
@@ -100,7 +100,7 @@ class GameService {
     }
 
     async createGame(playerId) {
-        const game = await database.games.create({
+        var game = await database.games.create({
             player_id: playerId,
             level: INITIAL_LEVEL,
             skips: INICIAL_SKIPS,
