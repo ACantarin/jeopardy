@@ -24,6 +24,17 @@ class GameController {
             res.status(400).send({ message: error.message })
         }
     }
+
+    static async skip(req, res) {
+        const { game_id } = req.body || {}
+
+        try {
+            const game = await gameService.skip({ game_id: game_id })
+            return res.status(200).json(game)
+        } catch (error) {
+            res.status(400).send({ message: error.message })
+        }
+    }
 }
 
 module.exports = GameController
